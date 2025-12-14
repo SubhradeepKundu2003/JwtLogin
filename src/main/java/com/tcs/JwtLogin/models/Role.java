@@ -1,5 +1,9 @@
 package com.tcs.JwtLogin.models;
 
 public enum Role {
-    USER, ADMIN;
+    ROLE_ATTENDEES,
+    ROLE_HALL_MANAGER,
+    ROLE_ORGANIZER,
+    ROLE_ADMIN
 }
+
