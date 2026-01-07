@@ -32,16 +32,23 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Role role;
 
+    private boolean enabled = true;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    private List<Hall> halls;
+
+
     public User() {}
 
-    public User(Long id, String firstName, String lastName,
-                String email, String password, Role role) {
+    public User(Long id, String firstName, String lastName, String email, String password, Role role, boolean enabled, List<Hall> halls) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.enabled = enabled;
+        this.halls = halls;
     }
 
     // ===== UserDetails methods =====
@@ -78,8 +85,9 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
+
 
     // ===== Getters & Setters =====
 
@@ -125,5 +133,17 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Hall> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
     }
 }

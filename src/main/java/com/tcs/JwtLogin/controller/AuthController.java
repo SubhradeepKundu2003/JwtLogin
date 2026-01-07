@@ -50,8 +50,8 @@ public class AuthController {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.ROLE_ATTENDEES); // 👈 DEFAULT ROLE
-
+        user.setRole(request.getRole());
+        user.setEnabled(false);
         userRepository.save(user);
 
         return ResponseEntity.ok("User registered successfully");
@@ -68,10 +68,15 @@ public class AuthController {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
 
+        if (!user.isEnabled()) {
+            throw new RuntimeException("Account not approved by admin");
+        }
+
         String token = jwtUtil.generateToken(user);
 
         return ResponseEntity.ok(
                 new AuthResponse(token, user.getRole().name())
         );
     }
+
 }
