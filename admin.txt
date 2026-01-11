@@ -1,3 +1,5 @@
+======================================
 DEFAULT ADMIN CREATED
-Email    : admin_734021@system.local
-Password : 49fc1a93-ee6
+Email    : admin_13f88a@system.local
+Password : 9d7bba0f-b13
+======================================
